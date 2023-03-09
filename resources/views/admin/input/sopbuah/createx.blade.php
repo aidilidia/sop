@@ -1,0 +1,4 @@
+ini halamannya
+<br>
+
+{{$namapilih}}
