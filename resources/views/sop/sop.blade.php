@@ -171,7 +171,7 @@
                   <h5>{{$kategori->kategori}}</h5>
                   <!-- <p>terkait laporan perkara</p> -->
                 </div>
-                <span style="font-size:9px" class="info-box-icon 
+                <span  class="info-box-icon 
                 
                   @if($kategori->id % 4 == 1)
                   bg-danger 
@@ -184,12 +184,9 @@
                   @endif
                   elevation-1 "> 
                   
-                  @foreach($jmlkat as $jml)
-                    @if($jml->id == $kategori->id)
-                    |
-                    
-                    @endif
-                  @endforeach
+                 
+                  {{ count($jmlkat->where('id', $kategori->id)) }}
+
                 </span>
               </div>
             </a>
