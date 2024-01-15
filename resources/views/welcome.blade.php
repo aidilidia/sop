@@ -78,7 +78,7 @@
     <div class="container text-center my-auto">
       <h1 class="mb-1">SOP</h1>
       <h3 class="mb-5">
-        <em>Manajemen Prosedur Operasi Standar Pengadilan Tinggi Agama Padang</em>
+        <em>Manajemen Prosedur Operasional Standar Pengadilan Tinggi Agama Padang</em>
       </h3>
       <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Lanjut</a>
     </div>
@@ -90,12 +90,12 @@
     <div class="container text-center">
       <div class="row">
         <div class="col-lg-10 mx-auto">
-          <h2>Penelusuran SOP lebih gambang untuk perbaikan berkelanjutan</h2>
+          <h2>Penelusuran SOP lebih mudah untuk perbaikan berkelanjutan</h2>
           <p class="lead mb-5">Ini diharapkan membantu Anda mencari tahu dan memberikan
             <!-- <a href="../rantik"> -->
             masukan
           <!-- </a> -->
-           kepada Kami</p>
+           kepada kami</p>
 
 
             <main id="main">
@@ -149,7 +149,7 @@
           <h4>
             <strong>SOP (<i>Standard Operating Procedure</i>)</strong>
           </h4>
-          <p class="text-faded mb-0">Prosedur Operasi Standar</p>
+          <p class="text-faded mb-0">Prosedur Operasional Standar</p>
         </a>
         
       </div>

@@ -14,38 +14,54 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Skenariopemeriksaan;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AdminosController extends Controller
 {
     public function show()
     {
+
+        //   try {
+        //     $baru = Input::where('jenisop', 'Usulan SOP Baru')->count();
+        // } catch (ModelNotFoundException $e) {
+        //     $baru = 0;
+        // }
+
       $baru = Input::where('jenisop', 'Usulan SOP Baru')->count();
       $eksis = Input::where('jenisop', 'Usulan SOP Eksis')->count();
       $revisi = Input::where('jenisop', 'Usulan Revisi SOP')->count();
 
       $approval   = User::where('level', 'Approval')->get('id')->first();
-      $approval = $approval->id;
+      
+      if ($approval) {
+        $approval = $approval->id;
 
-      $baruDisetujui  = Validasi::where('validasi',  1)
+        $baruDisetujui  = Validasi::where('validasi',  1)
+                      ->join('inputs', 'inputs.id', 'validasis.input_id')
+                      ->where('validasis.user_id', $approval)
+                      ->where('inputs.jenisop', 'Usulan SOP Baru')
+                      ->distinct('validasis.input_id')
+                      ->count('validasis.id');
+        
+        $eksisDisetujui  = Validasi::where('validasi',  1)
                     ->join('inputs', 'inputs.id', 'validasis.input_id')
                     ->where('validasis.user_id', $approval)
-                    ->where('inputs.jenisop', 'Usulan SOP Baru')
+                    ->where('inputs.jenisop', 'Usulan SOP Eksis')
                     ->distinct('validasis.input_id')
                     ->count('validasis.id');
-      
-      $eksisDisetujui  = Validasi::where('validasi',  1)
-                  ->join('inputs', 'inputs.id', 'validasis.input_id')
-                  ->where('validasis.user_id', $approval)
-                  ->where('inputs.jenisop', 'Usulan SOP Eksis')
-                  ->distinct('validasis.input_id')
-                  ->count('validasis.id');
-      
-      $revisiDisetujui  = Validasi::where('validasi',  1)
+        
+        $revisiDisetujui  = Validasi::where('validasi',  1)
                   ->join('inputs', 'inputs.id', 'validasis.input_id')
                   ->where('validasis.user_id', $approval)
                   ->where('inputs.jenisop', 'Usulan Revisi SOP')
                   ->distinct('validasis.input_id')
                   ->count('validasis.id');
+
+      } else {
+        $baruDisetujui   = 0;
+        $eksisDisetujui  = 0;
+        $revisiDisetujui = 0;
+      }
       
     return view('admin.input.show', compact('baru', 'eksis', 'revisi', 'baruDisetujui', 'eksisDisetujui', 'revisiDisetujui'));
     }

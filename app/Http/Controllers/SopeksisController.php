@@ -19,7 +19,11 @@ class SopeksisController extends Controller
     public function create()
     {
       $user_na   = User::where('level', 'Approval')->get('id')->first();
-      $user_na   = $user_na->id;
+      if($user_na){
+        $user_na   = $user_na->id;
+      } else {
+        $user_na   = 0;
+      }
       
       // $inputs = Validasi::where('validasi', 1) // val 1 masuk
       //           ->join('inputs', 'validasis.input_id', 'inputs.id')
@@ -145,7 +149,11 @@ class SopeksisController extends Controller
     {
       
         $user_na   = User::where('level', 'Approval')->get('id')->first();
-        $user_na   = $user_na->id;
+        if($user_na){
+          $user_na   = $user_na->id;
+        } else {
+          $user_na   = 0;
+        }
         
           $val_1 = Validasi::where('validasi', 1) // val 1 masuk
                   ->join('terbits', 'validasis.input_id', '=', 'terbits.input_id')

@@ -17,8 +17,14 @@ class BerandaController extends Controller
     public function index()
     {
         $terdaftar  = Input::all()->count();
+        
         $user_na    = User::where('level', 'Approval')->get('id')->first();
+        if($user_na)
+        {
+
+        
         $user_na    = $user_na->id;
+        
         $terbit     = Validasi::where('validasi', 1)
                     ->join('inputs', 'validasis.input_id', 'inputs.id')
                     ->leftjoin('nomors', 'validasis.input_id', 'nomors.input_id')
@@ -27,6 +33,12 @@ class BerandaController extends Controller
                     ->distinct('validasis.input_id')
                     ->select('inputs.id')
                     ->count();
+
+        } else {
+            $user_na = 0;
+            $terbit  = 0;
+
+        }
 
         return view('welcome', compact('terdaftar', 'terbit'));
         

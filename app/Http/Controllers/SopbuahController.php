@@ -19,7 +19,12 @@ class SopbuahController extends Controller
     public function index()
     {
       $user_na   = User::where('level', 'Approval')->get('id')->first();
-      $user_na   = $user_na->id;
+      if($user_na){
+        $user_na   = $user_na->id;
+      } else {
+        $user_na   = 0;
+      }
+      
       
       $inputs = Validasi::where('validasi', 1) // val 1 masuk
                 ->join('inputs', 'validasis.input_id', 'inputs.id')

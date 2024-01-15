@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $inputs = Input::all();
-      
+    //   dd($inputs);
       $exps = DB::table('inputs')
              ->select(DB::raw('count(*) as exp, user_id'))
              ->groupBy('user_id')
@@ -40,8 +40,10 @@ class HomeController extends Controller
       $verifikasi = Validasi::distinct('input_id')->count('id');
       $validasi   = Validasi::all();
       $approval   = User::where('level', 'Approval')->get('id')->first();
-      $approval = $approval->id;
       
+      if ($approval) {
+        $approval = $approval->id;
+        
       $disetujui  = Validasi::where('validasi',  1)
                     ->where('user_id', $approval)
                     ->distinct('input_id')
@@ -62,7 +64,13 @@ class HomeController extends Controller
                     ->distinct('validasis.input_id')
                     ->select('inputs.id')
                     ->count();
-      
+        } else {
+         
+         $disetujui = 0;
+         $ditolak = 0;
+        //  $user_na ='null';
+         $terbit = 0;
+        }  
         return view('home', compact('inputs', 'exps', 'users', 'usulan', 'verifikasi', 'disetujui', 'ditolak', 'terbit'));
     }
     

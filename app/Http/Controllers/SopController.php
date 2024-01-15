@@ -21,8 +21,11 @@ class SopController extends Controller
     public function index()
     {
         $user_na   = User::where('level', 'Approval')->get('id')->first();
-        $user_na   = $user_na->id;
-      
+        if($user_na) {
+            $user_na   = $user_na->id;
+        } else {
+            $user_na   = 0;
+        }
         $sops = Validasi::where('validasi', 1)
                 ->join('inputs', 'validasis.input_id', 'inputs.id')
                 ->leftjoin('nomors', 'validasis.input_id', 'nomors.input_id')
@@ -50,8 +53,6 @@ class SopController extends Controller
                 ->limit(3)
                 ->get();
         
-        $forkada = Input::all();
-        
         $kategoris = Validasi::where('validasi', 1)
                     ->join('inputs', 'validasis.input_id', 'inputs.id')
                     ->leftjoin('nomors', 'validasis.input_id', 'nomors.input_id')
@@ -73,6 +74,7 @@ class SopController extends Controller
                 ->select('kategoris.id')
                 ->get();
 
+        $forkada = Input::all();
         $lastNama     = Validasi::where('nama', '!=', NULL)->where('validasi', 1)->get();
         $cekNoRevKada = Sopfinal::all();
                 
@@ -82,8 +84,12 @@ class SopController extends Controller
     public function semua()
     {
         $user_na   = User::where('level', 'Approval')->get('id')->first();
-        $user_na   = $user_na->id;
-      
+        if($user_na) {
+            $user_na   = $user_na->id;
+        } else {
+            $user_na   = 0;
+        }
+        
         $sops = Validasi::where('validasi', 1)
                 ->join('inputs', 'validasis.input_id', 'inputs.id')
                 ->leftjoin('nomors', 'validasis.input_id', 'nomors.input_id')
